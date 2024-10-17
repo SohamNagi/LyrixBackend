@@ -14,9 +14,10 @@ build/
 # Spring Boot specific
 HELP.md
 .env  # Local environment variables
-*.properties~
+*.properties
 *.yml~
 /out/
+
 
 # IDE specific
 ## Spring Tool Suite (STS)
