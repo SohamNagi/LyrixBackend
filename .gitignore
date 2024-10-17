@@ -1,33 +1,82 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
+# Maven and Build directories
+/target/
 !**/src/main/**/target/
 !**/src/test/**/target/
+.mvn/
+!.mvn/wrapper/maven-wrapper.jar
 
-### STS ###
+# Gradle directories
+.gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Spring Boot specific
+HELP.md
+.env  # Local environment variables
+*.properties~
+*.yml~
+/out/
+
+# IDE specific
+## Spring Tool Suite (STS)
 .apt_generated
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
+## IntelliJ IDEA
+.idea/
 *.iws
 *.iml
 *.ipr
 
-### NetBeans ###
+## NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
+## VS Code
 .vscode/
+
+# Logs
+logs/
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Compiled bytecode
+*.class
+
+# Test results
+/test-output/
+
+# Node modules (if using Node for frontend assets)
+node_modules/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# JAR and WAR files
+*.jar
+*.war
+
+# H2 database (in-memory DB)
+/*.h2.db
+/*.mv.db
+
+# PostgreSQL database-related (optional)
+/*.pgdata
+*.sql
+
+# Git specific
+.gitignore~
