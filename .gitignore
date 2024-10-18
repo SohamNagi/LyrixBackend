@@ -18,6 +18,8 @@ HELP.md
 *.yml~
 /out/
 
+dataset
+
 
 # IDE specific
 ## Spring Tool Suite (STS)
