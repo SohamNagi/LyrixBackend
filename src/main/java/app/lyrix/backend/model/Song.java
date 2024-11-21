@@ -34,6 +34,13 @@ public class Song {
     @Getter @Setter @Column(columnDefinition = "TEXT")  // Store large text data
     public String englishLyrics;
 
+    @Getter @Setter @Column(columnDefinition = "TEXT")  // Store large text data
+    public String hindiAnalysis;
+    @Getter @Setter @Column(columnDefinition = "TEXT")  // Store large text data
+    public String urduAnalysis;
+    @Getter @Setter @Column(columnDefinition = "TEXT")  // Store large text data
+    public String englishAnalysis;
+
     // Override equals method
     @Override
     public boolean equals(Object o) {
