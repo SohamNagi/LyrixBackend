@@ -12,6 +12,5 @@ public interface SongRepository extends JpaRepository<Song, Integer> {
     // Find all songs by a specific author's ID
     List<Song> findByAuthorId(int authorId);
 
-    // Optional: Find a song by title
-    Song findByTitle(String title);
+    List<Song> findByTitleContainingIgnoreCase(String title);  // Case-insensitive partial match
 }

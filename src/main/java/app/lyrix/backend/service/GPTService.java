@@ -17,10 +17,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class GPTService {
-
     private static final String GPT_API_URL = "https://api.openai.com/v1/chat/completions";
-    private static final String GPT_MODEL = "gpt-4-turbo"; // Adjust model as required
-
+    private static final String GPT_MODEL = "gpt-4-turbo"; // Adjust model as required=
 
     public String generateTheme(String lyrics, String lang){
         try {
@@ -36,7 +34,7 @@ public class GPTService {
     private String buildCall(String requestBody) throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + API_KEY);
+        headers.set("Authorization", "Bearer " + System.getenv("LYRIXOPENAIKEY"));
         headers.set("Content-Type", "application/json");
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
@@ -116,7 +114,7 @@ public class GPTService {
             }
             case "urd" -> {
                 return """
-                        Answer the following in Urdru using the Urdu Script: You are a poetic and lyrical interpreter with expertise in analyzing poetry and song lyrics. For each task, you will receive the full text of a song or poem as context and a specific line to analyze. Your task is to:
+                        Answer the following in Urdu using the Urdu Script: You are a poetic and lyrical interpreter with expertise in analyzing poetry and song lyrics. For each task, you will receive the full text of a song or poem as context and a specific line to analyze. Your task is to:
                         Translate the provided line into Urdu while preserving its poetic essence and emotional depth.
                         Provide a deep and nuanced interpretation of the line, focusing on its themes, emotions, and significance.
                         Analyze the line in relation to the context of the full song or poem, explaining how it connects to broader themes and ideas.

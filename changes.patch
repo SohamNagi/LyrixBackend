@@ -1,0 +1,102 @@
+diff --git a/.gitignore b/.gitignore
+index efb6ab1..a491d91 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -14,7 +14,6 @@ build/
+ # Spring Boot specific
+ HELP.md
+ .env  # Local environment variables
+-*.properties
+ *.yml~
+ /out/
+ 
+diff --git a/src/main/java/app/lyrix/backend/repository/AuthorRepository.java b/src/main/java/app/lyrix/backend/repository/AuthorRepository.java
+index 725dc82..fb2422d 100644
+--- a/src/main/java/app/lyrix/backend/repository/AuthorRepository.java
++++ b/src/main/java/app/lyrix/backend/repository/AuthorRepository.java
+@@ -1,13 +1,17 @@
+ package app.lyrix.backend.repository;
+ 
+ import app.lyrix.backend.model.Author;
++import app.lyrix.backend.model.Song;
+ import org.springframework.data.jpa.repository.JpaRepository;
+ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+ import org.springframework.web.bind.annotation.CrossOrigin;
+ 
++import java.util.List;
++
+ @CrossOrigin(origins = "http://localhost:4000")
+ @RepositoryRestResource(path = "authors", collectionResourceRel = "authors", itemResourceRel = "author")
+ public interface AuthorRepository extends JpaRepository<Author, Integer> {
+     // Custom query example
+-    Author findByName(String name);
++    List<Author> findByNameContainingIgnoreCase(String name);
++
+ }
+\ No newline at end of file
+diff --git a/src/main/java/app/lyrix/backend/repository/SongRepository.java b/src/main/java/app/lyrix/backend/repository/SongRepository.java
+index b3525ac..3d36490 100644
+--- a/src/main/java/app/lyrix/backend/repository/SongRepository.java
++++ b/src/main/java/app/lyrix/backend/repository/SongRepository.java
+@@ -12,6 +12,5 @@ public interface SongRepository extends JpaRepository<Song, Integer> {
+     // Find all songs by a specific author's ID
+     List<Song> findByAuthorId(int authorId);
+ 
+-    // Optional: Find a song by title
+-    Song findByTitle(String title);
++    List<Song> findByTitleContainingIgnoreCase(String title);  // Case-insensitive partial match
+ }
+diff --git a/src/main/java/app/lyrix/backend/service/GPTService.java b/src/main/java/app/lyrix/backend/service/GPTService.java
+index 8bbfa43..1fb7a80 100644
+--- a/src/main/java/app/lyrix/backend/service/GPTService.java
++++ b/src/main/java/app/lyrix/backend/service/GPTService.java
+@@ -17,10 +17,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
+ 
+ @Service
+ public class GPTService {
+-
+     private static final String GPT_API_URL = "https://api.openai.com/v1/chat/completions";
+-    private static final String GPT_MODEL = "gpt-4-turbo"; // Adjust model as required
+-
++    private static final String GPT_MODEL = "gpt-4-turbo"; // Adjust model as required=
+ 
+     public String generateTheme(String lyrics, String lang){
+         try {
+@@ -36,7 +34,7 @@ public class GPTService {
+     private String buildCall(String requestBody) throws Exception {
+         RestTemplate restTemplate = new RestTemplate();
+         HttpHeaders headers = new HttpHeaders();
+-        headers.set("Authorization", "Bearer " + API_KEY);
++        headers.set("Authorization", "Bearer " + System.getenv("LYRIXOPENAIKEY"));
+         headers.set("Content-Type", "application/json");
+ 
+         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
+@@ -116,7 +114,7 @@ public class GPTService {
+             }
+             case "urd" -> {
+                 return """
+-                        Answer the following in Urdru using the Urdu Script: You are a poetic and lyrical interpreter with expertise in analyzing poetry and song lyrics. For each task, you will receive the full text of a song or poem as context and a specific line to analyze. Your task is to:
++                        Answer the following in Urdu using the Urdu Script: You are a poetic and lyrical interpreter with expertise in analyzing poetry and song lyrics. For each task, you will receive the full text of a song or poem as context and a specific line to analyze. Your task is to:
+                         Translate the provided line into Urdu while preserving its poetic essence and emotional depth.
+                         Provide a deep and nuanced interpretation of the line, focusing on its themes, emotions, and significance.
+                         Analyze the line in relation to the context of the full song or poem, explaining how it connects to broader themes and ideas.
+diff --git a/src/main/resources/application.properties b/src/main/resources/application.properties
+new file mode 100644
+index 0000000..dafc316
+--- /dev/null
++++ b/src/main/resources/application.properties
+@@ -0,0 +1,13 @@
++# App Config
++spring.application.name=backend
++spring.data.rest.base-path=/api
++spring.data.rest.default-page-size= 20
++
++
++# DataBase Config
++spring.datasource.url=jdbc:postgresql://stiltedly-affecting-bobolink.data-1.use1.tembo.io:5432/postgres
++spring.datasource.driver-class-name=org.postgresql.Driver
++spring.datasource.username= postgres
++spring.datasource.password=${LYRIXDBPW}
++spring.jpa.hibernate.ddl-auto=update
++spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+\ No newline at end of file
