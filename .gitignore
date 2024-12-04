@@ -16,7 +16,6 @@ HELP.md
 .env  # Local environment variables
 *.yml~
 /out/
-application.properties
 dataset
 
 
