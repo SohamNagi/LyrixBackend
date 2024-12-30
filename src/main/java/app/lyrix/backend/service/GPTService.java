@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class GPTService {
     private static final String GPT_API_URL = "https://api.openai.com/v1/chat/completions";
-    private static final String GPT_MODEL = "gpt-4-turbo"; // Adjust model as required=
+    private static final String GPT_MODEL = "gpt-4o-mini"; // Adjust model as required=
 
     public String generateTheme(String lyrics, String lang){
         try {
@@ -69,11 +69,6 @@ public class GPTService {
                           "translation": "[Translated line into English]",
                           "interpretation": "[Deep and nuanced interpretation of the line]",
                           "connectionsToContext": "[Explanation of how the line relates to the broader themes or context of the full song/poem]",
-                          "contexts": {
-                            "romantic": "[Romantic context interpretation, if applicable]",
-                            "spiritual": "[Spiritual context interpretation, if applicable]",
-                            "societal_philosophical": "[Societal or philosophical interpretation, if applicable]"
-                          }
                         }
 
                         Additional Instructions
@@ -96,12 +91,7 @@ public class GPTService {
                         {
                           "translation": "[Translated line into English]",
                           "interpretation": "[Deep and nuanced interpretation of the line]",
-                          "connectionsToContext": "[Explanation of how the line relates to the broader themes or context of the full song/poem]",
-                          "contexts": {
-                            "romantic": "[Romantic context interpretation, if applicable]",
-                            "spiritual": "[Spiritual context interpretation, if applicable]",
-                            "societal_philosophical": "[Societal or philosophical interpretation, if applicable]"
-                          }
+                          "connectionsToContext": "[Explanation of how the line relates to the broader themes or context of the full song/poem]"
                         }
 
                         Additional Instructions
@@ -124,12 +114,7 @@ public class GPTService {
                         {
                           "translation": "[Translated line into English]",
                           "interpretation": "[Deep and nuanced interpretation of the line]",
-                          "connectionsToContext": "[Explanation of how the line relates to the broader themes or context of the full song/poem]",
-                          "contexts": {
-                            "romantic": "[Romantic context interpretation, if applicable]",
-                            "spiritual": "[Spiritual context interpretation, if applicable]",
-                            "societal_philosophical": "[Societal or philosophical interpretation, if applicable]"
-                          }
+                          "connectionsToContext": "[Explanation of how the line relates to the broader themes or context of the full song/poem]"
                         }
 
                         Additional Instructions
