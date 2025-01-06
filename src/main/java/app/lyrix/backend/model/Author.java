@@ -1,26 +1,32 @@
 package app.lyrix.backend.model;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.util.List;
 import java.util.Objects;
 
-@Getter
 @Entity
-@NoArgsConstructor  // No-arg constructor required by JPA
-@AllArgsConstructor // Optional: Generates an all-args constructor
+// No-arg constructor required by JPA
+// Optional: Generates an all-args constructor
 public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Setter
     private String name;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Song> songList;
+
+    public Author(int id, String name, List<Song> songList) {
+        this.id = id;
+        this.name = name;
+        this.songList = songList;
+    }
+
+    public Author() {
+    }
 
     // Optional: Additional custom logic (if needed)
     public void addSong(Song song) {
@@ -49,5 +55,21 @@ public class Author {
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public List<Song> getSongList() {
+        return this.songList;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
