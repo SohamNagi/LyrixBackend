@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4000")
+@CrossOrigin(origins = {"http://localhost:4000", "https://www.lyrix.app/"})
 @RepositoryRestResource(path = "authors", collectionResourceRel = "authors", itemResourceRel = "author")
 public interface AuthorRepository extends JpaRepository<Author, Integer> {
     // Custom query example

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import app.lyrix.backend.service.SongService;
 
-@CrossOrigin(origins = "http://localhost:4000")
+@CrossOrigin(origins = {"http://localhost:4000", "https://www.lyrix.app/"})
 @RestController
 @RequestMapping("/api/songs")
 public class CustomSongController {
