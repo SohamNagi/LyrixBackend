@@ -49,6 +49,9 @@ public class SongService {
              String lyrics = getLyricsByLanguage(song, language);
              String line = lyrics.split("\n")[lineNumber];
              String generatedWork = gptService.generateAnalysis(lyrics, line, language);
+             if (generatedWork.endsWith("`")){
+                 generatedWork = generatedWork.substring(4, generatedWork.length()-3);
+             }
              LineAnalysis newAnalysis = new LineAnalysis();
              newAnalysis.setSong(song); // This sets the song_id column in the database
              newAnalysis.setLineNumber(lineNumber);
